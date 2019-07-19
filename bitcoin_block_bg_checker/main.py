@@ -433,7 +433,7 @@ class TxOut:
 header_hashes = []
 block = 0
 
-def block_download(address, block_hash, target_unspent_tx = -1):
+def block_search(address, block_hash, target_unspent_tx = -1):
     global block
     block = int(block_hash, 16)
     global header_hashes
@@ -449,3 +449,5 @@ def block_download(address, block_hash, target_unspent_tx = -1):
             return temp
     return None
     
+def recent_hash():
+    return blk.get_latest_block().hash

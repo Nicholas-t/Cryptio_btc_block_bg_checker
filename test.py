@@ -1,5 +1,11 @@
-from bitcoin_block_bg_checker.main import block_download
+from bitcoin_block_bg_checker.main import block_search, recent_hash
 
-block_download(("91.121.170.214", 8333), 
-				"000000000000000000161a4d8d05f96dda16d23262a3540c39c4365b38f1c1f8",
-                target_unspent_tx="1081a6210c4bb133e52c01fae7d713e6245f57df3abafc69ed3539a922b53d30")
+
+
+block_hash = recent_hash()
+
+print(block_hash)
+
+txn = block_search(("91.121.170.214", 8333),
+				block_hash,
+                target_unspent_tx="82e63e889759bccc0561d771c657fb0e451bd3b750d5735535f8c770891c1a46")
