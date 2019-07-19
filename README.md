@@ -115,7 +115,7 @@ address of the recepient and sender of the transaction by studying the script in
 so the conclusion is if we managed to decode this message to get the details of the transaction in the block, given an unspent transaction hash, we can scan the block
 for when is our unspent transaction hash is used as an input in a transaction and when it does, we can catch it and find details about how much they spent etc.
  
-![alt tx](https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/tx.PNG) ![alt in_n_out](https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/in_n_out.PNG) 
+![alt tx](images/tx.PNG) ![alt in_n_out](images/in_n_out.PNG) 
  
 # Practical Tutorial
 
@@ -234,7 +234,7 @@ Great, the algorithm found the target! So now we have a transaction object under
 for each_output in txn.tx_outs:
     print(each_output.amount, " satoshi")
 ```
-<img align="right" width="300" height="200" src="https:\\github.com\Nicholas-t\Cryptio_btc_block_bg_checker\tree\master\images\proof.PNG">
+<img align="right" width="300" height="200" src="images/proof.PNG">
 
 which returns 
 
