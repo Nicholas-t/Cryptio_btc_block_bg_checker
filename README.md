@@ -50,7 +50,7 @@ Best way to think of this _Handshake_ is like in real life it is *socially wise*
 the bitcoin network, your peer will not want to talk to you ever if you haven't done the handshake.
 The purpose of this handshake ritual is to broadcast your identity to your connected peer.
 
-<img align="right" width="100" height="100" src="images/handshake.png">
+<img align="right" width="400" height="200" src="images/handshake.png">
 
 The _Handshake_ done by the following:
 
@@ -88,7 +88,7 @@ getblocks : <https://en.bitcoin.it/wiki/Protocol_documentation#getblocks>
 There are 2 main packets that we will be interested in. I specified only 2 because throughout the communication protocol we will also receive other packets such as *inv* packets, 
 *getaddr* packets or a *ping* message which doesnt do us any good.
 
-<img align="right" width="100" height="100" src="images/headers.PNG">
+<img align="right" width="300" height="170" src="images/headers.PNG">
 
 ## Handling headers message:
 
@@ -100,7 +100,7 @@ headers : <https://en.bitcoin.it/wiki/Protocol_documentation#headers>
 block headers : <https://en.bitcoin.it/wiki/Protocol_documentation#Block_Headers>
 
 
-<img align="right" width="100" height="100" src="images/blocks.PNG">
+<img align="right" width="500" height="600" src="images/blocks.PNG">
 
 ## Handling block message:
 
@@ -234,7 +234,7 @@ Great, the algorithm found the target! So now we have a transaction object under
 for each_output in txn.tx_outs:
     print(each_output.amount, " satoshi")
 ```
-<img align="right" width="300" height="200" src="images/proof.PNG">
+<img align="right" width="600" height="400" src="images/proof.PNG">
 
 which returns 
 
