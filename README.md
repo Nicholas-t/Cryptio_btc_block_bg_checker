@@ -51,13 +51,15 @@ The purpose of this handshake ritual is to broadcast your identity to your conne
 
 The _Handshake_ done by the following:
 
-	- We send a [Version](https://en.bitcoin.it/wiki/Protocol_documentation#version) message
-	- We receive a [Version](https://en.bitcoin.it/wiki/Protocol_documentation#version) message
-	- We receive a [Verack] (https://en.bitcoin.it/wiki/Protocol_documentation#verack) (VERsion ACKnowledgement) message
-	- We send a [Verack](https://en.bitcoin.it/wiki/Protocol_documentation#verack) message 
+	- We send a Version message
+	- We receive a Version message
+	- We receive a Verack (VERsion ACKnowledgement) message
+	- We send a Verack message 
 
-
-
+#### ref
+	version : <https://en.bitcoin.it/wiki/Protocol_documentation#version>
+	verack : <https://en.bitcoin.it/wiki/Protocol_documentation#verack>
+	
 # Get Headers Message
 
 Every block is represented in the blockchain(*in the node*) as a blockheaders. There is no use for a node to keep the data of all the transaction in each block unless it is in
