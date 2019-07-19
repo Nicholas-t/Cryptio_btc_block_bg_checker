@@ -1,5 +1,7 @@
 # Cryptio_btc_block_bg_checker
- 
+
+If you only care about the practical application for this, refer straight to [practical tutorial](https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker#practical-tutorial)
+
 # Background:
 With this project, we would like to code a program that tracks an **entity transaction real time data** given their unspent transaction hash 
 (i.e. the hash of the last transactions they have). This can have a lot of possible applications, one of them is to be able to track *your own* transaction and see whether it is
@@ -23,6 +25,7 @@ Outline of steps that we will take:
 - *get headers message*
 - *get block message*
 - *handle packets*
+
 
 Special thanks to justin moon's [repo](https://github.com/justinmoon/bitcoincorps) for having a thorough step by step guide on communicating to a remote node. 
 do check it out if you wanna go deeper than what we cover here!
@@ -223,7 +226,7 @@ handling "b'block'"
  ntx_ins: <TxIn 82e63e889759bccc0561d771c657fb0e451bd3b750d5735535f8c770891c1a46> 
  tx_outs: <Amount 8529731>,<Amount 110579>> 
 
-82e63e889759bccc0561d771c657fb0e451bd3b750d5735535f8c770891c1a46
+
 new_transaction detected from unspent transaction 82e63e889759bccc0561d771c657fb0e451bd3b750d5735535f8c770891c1a46
 
 ```
