@@ -100,9 +100,9 @@ headers : <https://en.bitcoin.it/wiki/Protocol_documentation#headers>
 block headers : <https://en.bitcoin.it/wiki/Protocol_documentation#Block_Headers>
 
 
-<img align="right" width="500" height="400" src="images/blocks.PNG">
 
 ## Handling block message:
+<img align="right" width="500" height="250" src="images/blocks.PNG">
 
 A block message is a response to a getblocks message and contains the information about the block. As we can see the information about the 
 transactions is in the very last chunk of bytes.
