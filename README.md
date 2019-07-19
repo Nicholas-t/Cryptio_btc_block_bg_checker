@@ -100,7 +100,7 @@ headers : <https://en.bitcoin.it/wiki/Protocol_documentation#headers>
 block headers : <https://en.bitcoin.it/wiki/Protocol_documentation#Block_Headers>
 
 
-<img align="right" width="500" height="600" src="images/blocks.PNG">
+<img align="right" width="500" height="400" src="images/blocks.PNG">
 
 ## Handling block message:
 
@@ -234,7 +234,7 @@ Great, the algorithm found the target! So now we have a transaction object under
 for each_output in txn.tx_outs:
     print(each_output.amount, " satoshi")
 ```
-<img align="right" width="600" height="400" src="images/proof.PNG">
+
 
 which returns 
 
@@ -244,6 +244,7 @@ which returns
 ```
 which corresponds perfectly with the data in the blockchain info or btc.com
 
+<img align="right" width="600" height="400" src="images/proof.PNG">
 
 Here are a little documentation of what each class consists of:
 
