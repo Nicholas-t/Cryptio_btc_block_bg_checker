@@ -234,7 +234,7 @@ Great, the algorithm found the target! So now we have a transaction object under
 for each_output in txn.tx_outs:
     print(each_output.amount, " satoshi")
 ```
-<img align="right" width="100" height="100" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/proof.PNG">
+<img align="right" width="300" height="200" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/proof.PNG">
 
 which returns 
 
