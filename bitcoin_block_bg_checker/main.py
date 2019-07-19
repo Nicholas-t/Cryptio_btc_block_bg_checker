@@ -5,9 +5,9 @@ Created on Tue Jul  9 10:57:21 2019
 @author: Admin
 """
 
-from complete import *
-from handshake import handshake
-from blockchain import blockexplorer as blk
+from bitcoin_block_bg_checker.complete import *
+from bitcoin_block_bg_checker.handshake import handshake
+from bitcoin_block_bg_checker.blockchain import blockexplorer as blk
 import binascii
 import codecs
 
@@ -275,6 +275,7 @@ def handle_headers_packet(packet, sock):
 def handle_block_packet(packet, sock):
     block = Block.from_stream(io.BytesIO(packet.payload))
     for txn in block.txns:
+        print(txn)
         yield txn 
     
 def handle_packet(packet, sock, target_unspent_tx):
@@ -285,17 +286,18 @@ def handle_packet(packet, sock, target_unspent_tx):
     handler = command_to_handler.get(packet.command)
     if handler:
         print(f'handling "{packet.command}"')
-		if packet.command == b"block":
-			for txn in handler(packet, sock):
-				for ins in txn.tx_ins:
-					if ins.prev_tx == codecs.encode(target_unspent_tx,"utf-8")
-						return txn
-		else:	
-			handler(packet, sock)
-			return None
+        if packet.command == b"block":
+            for txn in handler(packet, sock):
+                for ins in txn.tx_ins:
+                    if ins.prev_tx == target_unspent_tx:
+                        print(ins.prev_tx)
+                        return txn
+        else:	
+            handler(packet, sock)
+            return None
     else:
         print(f'discarding "{packet.command}"')
-		return None
+        return None
 
 class Tx:
     def __init__(self, version, tx_ins, tx_outs, locktime, testnet=False):
@@ -355,7 +357,7 @@ class Tx:
         except:
             return "<Tx new \n ntx_ins: {} \n tx_outs: {}> \n".format(
                 ",".join([repr(t) for t in self.tx_ins]),
-                ",".join([repr(t) for t in self.tx_outs]),
+                ",".join([repr(t) for t in self.tx_outs]))
 
 
 class TxIn:
@@ -428,19 +430,22 @@ class TxOut:
         # return an instance of the class (cls(...))
         return cls(amount, script_pubkey)
 
+header_hashes = []
+block = 0
 
-        
-def block_download(address, block_hash, target_unspxeent_tx = -1)
-	block = int(block_hash, 16)
-	header_hashes = [block]
+def block_download(address, block_hash, target_unspent_tx = -1):
+    global block
+    block = int(block_hash, 16)
+    global header_hashes
+    header_hashes = [block]
     sock = handshake(address, log=False)
     # comment this line out and we don't get any headers
     send_getheaders(sock)
     while True:
         packet = Packet.from_socket(sock)
         temp =  handle_packet(packet, sock, target_unspent_tx)
-		if isinstance(temp,Tx):
-			print("new_transaction detected from unspent transaction {}".format(target_unspent_tx))
-			return temp
-	return None
+        if isinstance(temp,Tx):
+            print("new_transaction detected from unspent transaction {}".format(target_unspent_tx))
+            return temp
+    return None
     

@@ -1,7 +1,7 @@
 import socket
 import time
 
-from complete import *  # get the final version ...
+from bitcoin_block_bg_checker.complete import *  # get the final version ...
 
 
 def handshake(address, log=True):
