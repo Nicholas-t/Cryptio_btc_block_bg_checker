@@ -43,11 +43,12 @@ do check it out if you wanna go deeper than what we cover here!
 
 # Handshake
 
-Best way to think of this *Handshake* is like in real life it is *socially wise* to handshake someone before a professional meeting and tells them your name, company, etc. except with
+Best way to think of this _Handshake_ is like in real life it is *socially wise* to handshake someone before a professional meeting and tells them your name, company, etc. except with
 the bitcoin network, your peer will not want to talk to you ever if you haven't done the handshake.
 The purpose of this handshake ritual is to broadcast your identity to your connected peer.
 
-<img align="right" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/blob/master/images/handshake.png">
+<img align="right" width="150" height="100" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/handshake.png">
+
 The _Handshake_ done by the following:
 
 	- We send a Version message
