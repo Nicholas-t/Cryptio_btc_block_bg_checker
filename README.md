@@ -93,6 +93,7 @@ Headers message is the response to a *getheaders* message that we sent, which sh
 
 #### ref :
 headers : <https://en.bitcoin.it/wiki/Protocol_documentation#headers>
+
 block headers : <https://en.bitcoin.it/wiki/Protocol_documentation#Block_Headers>
 
 
@@ -113,7 +114,7 @@ for when is our unspent transaction hash is used as an input in a transaction an
  
 ![alt tx](https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/tx.PNG) ![alt in_n_out](https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/in_n_out.PNG) 
  
-# Practical Tutorial
+# Practical Tutorial (TO DO)
 
 # Conclusion
 
