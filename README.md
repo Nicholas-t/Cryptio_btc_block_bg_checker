@@ -47,7 +47,7 @@ Best way to think of this _Handshake_ is like in real life it is *socially wise*
 the bitcoin network, your peer will not want to talk to you ever if you haven't done the handshake.
 The purpose of this handshake ritual is to broadcast your identity to your connected peer.
 
-<img align="right" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/handshake.png">
+<img align="right" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/handshake.PNG">
 
 The _Handshake_ done by the following:
 
@@ -63,7 +63,7 @@ The _Handshake_ done by the following:
 Every block is represented in the blockchain(*in the node*) as a blockheaders. There is no use for a node to keep the data of all the transaction in each block unless it is in
 their interest.
 
-<img align="right" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/headers.png">
+<img align="right" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/headers.PNG">
 
 If we take a look at the format of a headers message from the bitcoin protocol, we can see that the actual block it self is crypted in the second part of the headers message,
 this means we can get the details of the block, if we can decode it using binary parsing.
