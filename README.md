@@ -56,8 +56,9 @@ The _Handshake_ done by the following:
 	- We receive a Verack (VERsion ACKnowledgement) message
 	- We send a Verack message 
 
-#### ref
+#### ref :
 version : <https://en.bitcoin.it/wiki/Protocol_documentation#version>
+
 verack : <https://en.bitcoin.it/wiki/Protocol_documentation#verack>
 	
 # Get Headers Message
@@ -65,15 +66,53 @@ verack : <https://en.bitcoin.it/wiki/Protocol_documentation#verack>
 Every block is represented in the blockchain(*in the node*) as a blockheaders. There is no use for a node to keep the data of all the transaction in each block unless it is in
 their interest.
 
-<img align="right" width="100" height="100" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/headers.PNG">
-
-If we take a look at the format of a headers message from the bitcoin protocol, we can see that the actual block it self is crypted in the second part of the headers message,
+If we take a look at the format of a response to a *get headers message* from the bitcoin protocol, we can see that the actual block it self is crypted in the second part of the headers message,
 this means we can get the details of the block, if we can decode it using binary parsing.
+
+#### ref :
+getheaders : <https://en.bitcoin.it/wiki/Protocol_documentation#getheaders>
 
 # Get Block Message
 
+In this step we request the details of the *block message* from the *headers message* through our public node. The information that we are most interested in is the transactions that
+are included in the block
+
+#### ref :
+getblocks : <https://en.bitcoin.it/wiki/Protocol_documentation#getblocks>
+
 # Handle Packets
 
+There are 2 main packets that we will be interested in. I specified only 2 because throughout the communication protocol we will also receive other packets such as *inv* packets, 
+*getaddr* packets or a *ping* message which doesnt do us any good.
+
+<img align="right" width="100" height="100" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/headers.PNG">
+
+## Handling headers message:
+
+Headers message is the response to a *getheaders* message that we sent, which should contain the information about the block headers we requested.
+
+#### ref :
+headers : <https://en.bitcoin.it/wiki/Protocol_documentation#headers>
+block headers : <https://en.bitcoin.it/wiki/Protocol_documentation#Block_Headers>
+
+
+<img align="right" width="100" height="100" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/blocks.PNG">
+
+## Handling block message:
+
+A block message is a response to a getblocks message and contains the information about the block. As we can see the information about the 
+transactions is in the very last chunk of bytes.
+
+The transaction object contained has a list of inputs and outputs, **now do not get confused!** contrary to our usual notion of inputsan d outputs being the addresses of 
+the entity that take part in the transaction, 
+that is not the case in the bitcoin protocol , instead input contains the **unspent transaction hash** that the user have that he/she used in this transaction
+and output contains the information about the **amount** of the transaction in satoshi, with that being said, technically we can derive the 
+address of the recepient and sender of the transaction by studying the script in the output but in our case we will not go as deep. 
+so the conclusion is if we managed to decode this message to get the details of the transaction in the block, given an unspent transaction hash, we can scan the block
+for when is our unspent transaction hash is used as an input in a transaction and when it does, we can catch it and find details about how much they spent etc.
+ 
+![alt tx](https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/tx.PNG) ![alt in_n_out](https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/in_n_out.PNG) 
+ 
 # Practical Tutorial
 
 # Conclusion
