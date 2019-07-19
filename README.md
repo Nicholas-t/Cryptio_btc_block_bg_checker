@@ -47,7 +47,7 @@ Best way to think of this _Handshake_ is like in real life it is *socially wise*
 the bitcoin network, your peer will not want to talk to you ever if you haven't done the handshake.
 The purpose of this handshake ritual is to broadcast your identity to your connected peer.
 
-![alt handshake]("https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/handshake.png)
+<img align="right" width="100" height="100" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/handshake.png">
 
 The _Handshake_ done by the following:
 
@@ -57,15 +57,15 @@ The _Handshake_ done by the following:
 	- We send a Verack message 
 
 #### ref
-	version : <https://en.bitcoin.it/wiki/Protocol_documentation#version>
-	verack : <https://en.bitcoin.it/wiki/Protocol_documentation#verack>
+version : <https://en.bitcoin.it/wiki/Protocol_documentation#version>
+verack : <https://en.bitcoin.it/wiki/Protocol_documentation#verack>
 	
 # Get Headers Message
 
 Every block is represented in the blockchain(*in the node*) as a blockheaders. There is no use for a node to keep the data of all the transaction in each block unless it is in
 their interest.
 
-<img align="right" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/headers.PNG">
+<img align="right" width="100" height="100" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/headers.PNG">
 
 If we take a look at the format of a headers message from the bitcoin protocol, we can see that the actual block it self is crypted in the second part of the headers message,
 this means we can get the details of the block, if we can decode it using binary parsing.
@@ -76,6 +76,6 @@ this means we can get the details of the block, if we can decode it using binary
 
 # Practical Tutorial
 
-#Conclusion
+# Conclusion
 
 Tracking an unspent transaction through only socket connection with a remote node
