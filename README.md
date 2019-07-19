@@ -47,7 +47,7 @@ Best way to think of this _Handshake_ is like in real life it is *socially wise*
 the bitcoin network, your peer will not want to talk to you ever if you haven't done the handshake.
 The purpose of this handshake ritual is to broadcast your identity to your connected peer.
 
-<img align="right" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/handshake.PNG">
+![alt handshake]("https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/handshake.png)
 
 The _Handshake_ done by the following:
 
