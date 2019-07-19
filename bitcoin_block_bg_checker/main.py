@@ -274,10 +274,10 @@ def handle_headers_packet(packet, sock):
     
 def handle_block_packet(packet, sock):
     block = Block.from_stream(io.BytesIO(packet.payload))
-    for txn in block.txns[:30]:
-        print(txn)
+    for txn in block.txns:
+        yield txn 
     
-def handle_packet(packet, sock):
+def handle_packet(packet, sock, target_unspent_tx):
     command_to_handler = {
         b"headers": handle_headers_packet,
         b"block": handle_block_packet,
@@ -285,36 +285,35 @@ def handle_packet(packet, sock):
     handler = command_to_handler.get(packet.command)
     if handler:
         print(f'handling "{packet.command}"')
-        handler(packet, sock)
+		if packet.command == b"block":
+			for txn in handler(packet, sock):
+				for ins in txn.tx_ins:
+					if ins.prev_tx == codecs.encode(target_unspent_tx,"utf-8")
+						return txn
+		else:	
+			handler(packet, sock)
+			return None
     else:
         print(f'discarding "{packet.command}"')
+		return None
 
 class Tx:
-    def __init__(self, version, tx_ins, tx_outs, locktime, segwit_flag = -1 , witness = -1, testnet=False):
+    def __init__(self, version, tx_ins, tx_outs, locktime, testnet=False):
         self.version = version
         self.tx_ins = tx_ins
         self.tx_outs = tx_outs
         self.locktime = locktime
-		self.segwit_flag = segwit_flag #i added this
-		self.witness = witness
         self.testnet = testnet
-
         
     def get_raw(self):
         raw = b''
         raw+= binascii.hexlify(int_to_bytes(self.version,4))
-		if self.segwit_flag -= -1:
-			raw += binascii.hexlify(int_to_bytes(self.segwit_flag,2))
         raw+= binascii.hexlify(int_to_bytes(len(self.tx_ins),4))
         for t in self.tx_ins:
             raw+= t.get_raw()
         raw+= binascii.hexlify(int_to_bytes(len(self.tx_outs),4))
         for t in self.tx_outs:
             raw+= t.get_raw()
-		if self.witness != -1:
-			raw+= binascii.hexlify(int_to_bytes(len(self.witness),4))
-			for w in self.witness:
-				raw+= w.get_raw()
         raw+= binascii.hexlify(int_to_bytes(self.locktime,4))
         return raw
     
@@ -332,13 +331,7 @@ class Tx:
         # version has 4 bytes, little-endian, interpret as int
         version = bytes_to_int(s.read(4))
         # num_inputs is a varint, use read_var_int(s)
-		seg = s.read(1)
-		if bytes_to_int(seg) == 0: #FIX ME
-			seg += s.read(1)
-			num_inputs = read_var_int(s)
-		else:
-			seg = -1
-			num_inputs = seg
+        num_inputs = read_var_int(s)
         # each input needs parsing
         inputs = []
         for _ in range(num_inputs):
@@ -349,18 +342,10 @@ class Tx:
         outputs = []
         for _ in range(num_outputs):
             outputs.append(TxOut.from_stream(s))
-		if seg != -1:
-			wit = []
-			num_wit = read_var_int(s)
-			for _ in range (num_wit):
-				wit.append(Witness.from_stream(s))
-			# locktime is 4 bytes, little-endian
-			locktime = bytes_to_int(s.read(4))
-			# return an instance of the class (cls(...))
-			return cls(version, inputs, outputs, locktime, segwit_flag = seg , witness = wit)
-		else:
-			locktime = bytes_to_int(s.read(4))
-			return cls(version, inputs, outputs, locktime)
+        # locktime is 4 bytes, little-endian
+        locktime = bytes_to_int(s.read(4))
+        # return an instance of the class (cls(...))
+        return cls(version, inputs, outputs, locktime)
 
     def __repr__(self):
         try :
@@ -368,35 +353,9 @@ class Tx:
             print(t.address, " successfully found")
             exit()
         except:
-            return "<Tx{} \n version: {}\n ntx_ins: {} \n tx_outs: {} \n nlocktime: {} \n>".format(
-                    self.get_hash(),
-                self.version,
+            return "<Tx new \n ntx_ins: {} \n tx_outs: {}> \n".format(
                 ",".join([repr(t) for t in self.tx_ins]),
                 ",".join([repr(t) for t in self.tx_outs]),
-                self.locktime )
-
-class Witness: #class i made
-    def __init__(self,  script):
-        self.script= script  # TODO from_stream it
-
-    def get_raw(self):#FIX ME
-        raw = b''
-        raw+= codecs.encode('{0:x}'.format(len(self.script)),"utf-8")
-        raw+= binascii.hexlify(self.script)
-        return raw
-    
-    def __repr__(self):
-        return "<Witness {}>".format(self.script)
-
-    @classmethod
-    def from_stream(cls, s):
-        """Takes a byte stream and from_streams the tx_output at the start
-        return a TxOut object
-        """
-        script_length = read_var_int(s)
-        script = s.read(script_length)
-        # return an instance of the class (cls(...))
-        return cls(script)
 
 
 class TxIn:
@@ -417,10 +376,7 @@ class TxIn:
 
 
     def __repr__(self):
-        return "<TxIn {}\n:index {} \nscriptsig {} \n sequence {}>\n".format(self.prev_tx, 
-                      self.prev_index,
-                      self.script_sig,
-                      self.sequence)
+        return "<TxIn {}>".format(self.prev_tx)
 
     @classmethod
     def from_stream(cls, s):
@@ -455,7 +411,7 @@ class TxOut:
         return raw
     
     def __repr__(self):
-        return "<TxOut {}:{}>".format(self.amount, self.script_pubkey)
+        return "<Amount {}>".format(self.amount)
 
     @classmethod
     def from_stream(cls, s):
@@ -473,22 +429,23 @@ class TxOut:
         return cls(amount, script_pubkey)
 
 
-
-
         
-def initial_block_download():
-    address = ("37.187.107.95", 8333)
+def block_download(address, block_hash, target_unspxeent_tx = -1)
+	block = int(block_hash, 16)
+	header_hashes = [block]
     sock = handshake(address, log=False)
     # comment this line out and we don't get any headers
     send_getheaders(sock)
-    i = 0
     while True:
-        i+=1
         packet = Packet.from_socket(sock)
-        handle_packet(packet, sock)
+        temp =  handle_packet(packet, sock, target_unspent_tx)
+		if isinstance(temp,Tx):
+			print("new_transaction detected from unspent transaction {}".format(target_unspent_tx))
+			return temp
+	return None
     
-    
-block = int("000000000000000000161a4d8d05f96dda16d23262a3540c39c4365b38f1c1f8", 16) #bloc 550067
-header_hashes = [block]
 
-initial_block_download()
+
+block_download(("91.121.170.214", 8333), 
+				"000000000000000000161a4d8d05f96dda16d23262a3540c39c4365b38f1c1f8",
+				target_unspent_tx)
