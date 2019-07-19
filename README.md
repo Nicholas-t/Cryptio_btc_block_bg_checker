@@ -47,12 +47,13 @@ Best way to think of this *Handshake* is like in real life it is *socially wise*
 the bitcoin network, your peer will not want to talk to you ever if you haven't done the handshake.
 The purpose of this handshake ritual is to broadcast your identity to your connected peer.
 
-<img align="right" width="150" height="100" src="https://github.com/Nicholas-t/Cryptio/blob/master/images/handshake.png">
+<img align="right" width="150" height="100" src="https://github.com/Nicholas-t/Cryptio_btc_block_bg_checker/tree/master/images/handshake.png">
 The *Handshake* done by the following:
-- We send a Version message
-- We receive a Version message
-- We receive a Verack (VERsion ACKnowledgement) message
-- We send a Verack message 
+
+	- We send a Version message
+	- We receive a Version message
+	- We receive a Verack (VERsion ACKnowledgement) message
+	- We send a Verack message 
 
 
 
