@@ -1,11 +1,11 @@
 # Cryptio_btc_block_bg_checker
  
-#Background:
+# Background:
 With this project, we would like to code a program that tracks an **entity transaction real time data** given their unspent transaction hash 
 (i.e. the hash of the last transactions they have). This can have a lot of possible applications, one of them is to be able to track *your own* transaction and see whether it is
 already succesfully saved in the global ledger, you can also track peoples transaction if you know who the unspent transaction hash belongs to.
 What is ambitious about this project is we would like to do this **without running our own node** and use as least as third party API as possible such as blockchain API, with that being 
-said we will eventually use their API for one small part of the project which will be explained later.
+said we will eventually use their API for one small part of the project which will be explained later. All communication in the bitcoin protocol uses TCP Protocol.
 
 ## Why not run our own node?
 
@@ -42,6 +42,19 @@ do check it out if you wanna go deeper than what we cover here!
 # Connecting to a remote node (TO DO)
 
 # Handshake
+
+Best way to think of this *Handshake* is like in real life it is *socially wise* to handshake someone before a professional meeting and tells them your name, company, etc. except with
+the bitcoin network, your peer will not want to talk to you ever if you haven't done the handshake.
+The purpose of this handshake ritual is to broadcast your identity to your connected peer.
+
+<img align="right" width="150" height="100" src="https://github.com/Nicholas-t/Cryptio/blob/master/images/handshake.png">
+The *Handshake* done by the following:
+- We send a Version message
+- We receive a Version message
+- We receive a Verack (VERsion ACKnowledgement) message
+- We send a Verack message 
+
+
 
 # Get Headers Message
 
