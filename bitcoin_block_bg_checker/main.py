@@ -290,7 +290,6 @@ def handle_packet(packet, sock, target_unspent_tx):
             for txn in handler(packet, sock):
                 for ins in txn.tx_ins:
                     if ins.prev_tx == target_unspent_tx:
-                        print(ins.prev_tx)
                         return txn
         else:	
             handler(packet, sock)
