@@ -13,6 +13,8 @@ import codecs
 
 
 VERSION = 70015
+limit = 3
+i = 0
 
 def double_sha256(b):
     first_round = hashlib.sha256(b).digest()
@@ -279,12 +281,14 @@ def handle_block_packet(packet, sock):
         yield txn 
     
 def handle_packet(packet, sock, target_unspent_tx):
+    global i
     command_to_handler = {
         b"headers": handle_headers_packet,
         b"block": handle_block_packet,
     }
     handler = command_to_handler.get(packet.command)
     if handler:
+        i = 0
         print(f'handling "{packet.command}"')
         if packet.command == b"block":
             for txn in handler(packet, sock):
@@ -296,6 +300,10 @@ def handle_packet(packet, sock, target_unspent_tx):
             return None
     else:
         print(f'discarding "{packet.command}"')
+        if packet.command == b'inv':
+            i+=1
+            if i >= limit :
+                return -1
         return None
 
 class Tx:
@@ -446,6 +454,8 @@ def block_search(address, block_hash, target_unspent_tx = -1):
         if isinstance(temp,Tx):
             print("new_transaction detected from unspent transaction {}".format(target_unspent_tx))
             return temp
+        if temp == -1:
+            break
     return None
     
 def recent_hash():
