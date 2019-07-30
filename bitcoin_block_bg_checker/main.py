@@ -293,7 +293,7 @@ def handle_packet(packet, sock, target_unspent_tx):
         if packet.command == b"block":
             for txn in handler(packet, sock):
                 for ins in txn.tx_ins:
-                    if ins.prev_tx == target_unspent_tx:
+                    if ins.prev_tx in target_unspent_tx:
                         return txn
         else:	
             handler(packet, sock)
